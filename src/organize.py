@@ -33,7 +33,7 @@ def organizeFolders(rootDir):
     # contains folders and things that couldn't be categorized
     folderDir = createDirectory("Misc Folders", rootDir)
 
-    ignoreList = ["Images", "Documents", "Video", "ZipArchives",
+    ignoreList = ["Images", "Documents", "Videos", "ZipArchives",
                   "Installer", "Code", "App", "Misc"]
     directory = list(set(directory).difference(set(ignoreList)))
     print(type(directory))
