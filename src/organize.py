@@ -27,26 +27,26 @@ def analyzeFolder(folderPath):
 
 
 def organizeFolders(rootDir):
-    files = os.listdir(rootDir)
+    directory = os.listdir(rootDir)
 
-    imagesDir = createDirectory("Images", rootDir)
-    docsDir = createDirectory("Documents", rootDir)
-    videoDir = createDirectory("Videos", rootDir)
-    zipDir = createDirectory("ZipArchives", rootDir)
-    dmgDir = createDirectory("Installer", rootDir)
-    codeDir = createDirectory('Code', rootDir)
-    appDir = createDirectory("App", rootDir)
+    # TODO: move to a data-driven solution using json
     # contains folders and things that couldn't be categorized
     folderDir = createDirectory("Misc Folders", rootDir)
 
-    # TODO: move to a data-driven solution using json
-    for name in files:
-        print(name)
+    ignoreList = ["Images", "Documents", "Video", "ZipArchives",
+                  "Installer", "Code", "App", "Misc"]
+    directory = list(set(directory).difference(set(ignoreList)))
+    print(type(directory))
+    for name in directory:
+        if '.' in name:
+            continue
+        else:
+            move(rootDir, name, folderDir)
     return
 
 
 def organize(rootDir):
-    # organizeFiles(rootDir)
+    organizeFiles(rootDir)
     organizeFolders(rootDir)
 
 
@@ -62,7 +62,7 @@ def organizeFiles(rootDir):
     codeDir = createDirectory('Code', rootDir)
     appDir = createDirectory("App", rootDir)
     # contains folders and things that couldn't be categorized
-    folderDir = createDirectory("Misc Folders", rootDir)
+    folderDir = createDirectory("Misc", rootDir)
 
     # TODO: move to a data-driven solution using json
     for name in files:
@@ -101,7 +101,7 @@ def main(rootDir):
 
     organize(rootDir)
 
-    print("Cleanup done successfully.")
+    print("Organized successfully.")
 
 
 if __name__ == "__main__":
